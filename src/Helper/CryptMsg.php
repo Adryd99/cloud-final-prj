@@ -19,9 +19,8 @@ class CryptMsg {
             touch(self::$encryptionKeyFile);
         }
         self::$key = file_get_contents(self::$encryptionKeyFile);
-
         if (strlen(self::$key) < 1 || self::$key === false) {
-            self::$key = random_bytes(SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
+        self::$key = random_bytes(SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
             file_put_contents(self::$encryptionKeyFile, base64_encode(self::$key));
         } else {
             self::$key = base64_decode(self::$key);
@@ -45,8 +44,8 @@ class CryptMsg {
 
             if (! isset($_COOKIE['nonce'])) {
                 $expires = 3600*3;
-                var_dump(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
-                self::$nonce = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+                // var_dump(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+              self::$nonce = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
                 setcookie('nonce', self::$nonce, time() + $expires);
 
             } else {
@@ -60,6 +59,7 @@ class CryptMsg {
 
     public function encrypt(string $msg, string $nonce): string {
         return sodium_crypto_secretbox($msg, $nonce, self::$key);
+
     }
 
 
@@ -70,5 +70,6 @@ class CryptMsg {
             return '';
         }
         return $value;
+        
     }
 }

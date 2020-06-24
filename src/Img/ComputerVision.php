@@ -55,7 +55,7 @@ class ComputerVision {
 
         $imgJsonDescription = curl_exec($ch);
         curl_close($ch);
-        
+
         return $imgJsonDescription;
     }
 
