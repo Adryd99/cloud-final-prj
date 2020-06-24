@@ -12,11 +12,11 @@ use App\Config\Env;
 
 /**
  * Script that will setup json files files that will be imported in mongo via
- * "mongoimport" cmd from the bash shell. 
- * 
- * This script will look for any other .php script inside this folder and will try to 
+ * "mongoimport" cmd from the bash shell.
+ *
+ * This script will look for any other .php script inside this folder and will try to
  * get from it an indexed array with values needed to populate the db.
- *  
+ *
  * All those scripts MUST return an indexed array with fields:
  * [db] = string, name of db
  * [collection] = string, name of current collection
@@ -55,7 +55,7 @@ function cmdExec(string $cmd) : int {
     // $output = shell_exec($cmd);
     exec($cmd, $output, $returnVal);
 var_dump($returnVal);
-    if ($returnVal > 0) {
+    if ($returnVal != 0) {
         throw new \Error("Cmd failed: $cmd");
     }
     return $returnVal;
@@ -73,7 +73,7 @@ function array2json(array $data): string {
         foreach ($data AS $d) {
             if ($d instanceof BaseMapObject)
                 $d = $d->toArray();
-            
+
             $json .= json_encode($d) . ',';
         }
         $json = substr($json, 0, -1);
@@ -109,7 +109,7 @@ echo 'Writing ' . $filename;
     }
 
     if (! fclose($file)) {
-        throw new \Error('Cannot close file @' . __FILE__);   
+        throw new \Error('Cannot close file @' . __FILE__);
     }
 
     return true;
@@ -138,7 +138,7 @@ foreach ($scripts AS $s) {
     echo "\nExecuting: $localImportCmd\n";
 
     echo "\nAwaiting connection...\n";
-  
+
     try {
         $driver->getConnection();
         cmdExec($localImportCmd) . "\n";

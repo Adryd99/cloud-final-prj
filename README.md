@@ -17,6 +17,8 @@ This project will also make use of SimpleMVC Framework by Enrico Zimuel, which c
 
 
 **Instructions**
+- Download and Install MongoDB driver extension from pecl
+
 - Activate the mongoDb extension for php from your php.ini file and restart the service
 
 - Enable curl for php (if needed install the required packages on your machine)
@@ -24,6 +26,8 @@ This project will also make use of SimpleMVC Framework by Enrico Zimuel, which c
 - Run the `composer install` command from your terminal pointing to the main folder of this app
 
 - From */config* folder make a copy of *config.template.env* and rename it *config.env*. Then replace the palceholder values with those that suite your environment (please do not change the COOKIES_TO_ENCRYPT parameter).
+
+- Make sure you have mongo in your env variable
 
 - Then from your terminal run the command `php dbseed/index.php` to create the db user for the application (further details about this operation can be found in */dbseed/README.md*).
 

@@ -18,8 +18,8 @@ class MongoWQuery {
     const QUERY_COMMANDS = ['insert', 'update', 'delete'];
 
     public function __construct(
-        MongoConnection $connection, 
-        BulkWrite $bulk, 
+        MongoConnection $connection,
+        BulkWrite $bulk,
         WriteConcern $wConcern,
         ?string $db=null
     ) {
@@ -28,7 +28,7 @@ class MongoWQuery {
         $this->wConcern = $wConcern;
         try {
             $this->db = is_null($db) ? Env::get('DB_NAME') : $db;
-            
+
         } catch (\InvalidArgumentException $e)  {
             die($e->getMessage());
         }
@@ -73,10 +73,10 @@ class MongoWQuery {
     public function execute(string $collection) {
         try  {
             $result = $this->connection->executeBulkWrite("$this->db.$collection", $this->bulk, $this->wConcern);
-        
+
         } catch (MongoDB\Driver\Exception\BulkWriteException $e) {
             $result = $e->getWriteResult();
-        
+
             // Check if the write concern could not be fulfilled
             if ($writeConcernError = $result->getWriteConcernError()) {
                 printf("%s (%d): %s\n",
@@ -85,7 +85,7 @@ class MongoWQuery {
                     var_export($writeConcernError->getInfo(), true)
                 );
             }
-        
+
             // Check if any write operations did not complete at all
             foreach ($result->getWriteErrors() as $writeError) {
                 printf("Operation#%d: %s (%d)\n",
@@ -104,10 +104,10 @@ class MongoWQuery {
         }
         return $result;
     }
-    
+
 
     public function select(Query $query, string $collection) :CursorInterface  {
-// var_dump($query);
+      var_dump($query, $this->db, $collection);
         try {
             return $this->connection->executeQuery(
                 sprintf('%s.%s', $this->db, $collection),
@@ -121,6 +121,6 @@ class MongoWQuery {
             printf("Driver error: %s\n", $e->getMessage());
             exit;
         }
-        
+
     }
 }
