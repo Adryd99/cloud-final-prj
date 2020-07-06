@@ -22,7 +22,10 @@ class ComputerVision {
 
     public function __construct() {
         $this->url = Env::get('AZURE_COMPUTER_VISION_ENDPOINT');
-        $this->url .= '/vision/v2.0/analyze';
+        if (substr($this->url, -1) != '/') {
+            $this->url .= '/';
+        }
+        $this->url .= 'analyze';
         $this->key = Env::get('AZURE_COMPUTER_VISION_KEY');
     }
 
@@ -55,7 +58,7 @@ class ComputerVision {
 
         $imgJsonDescription = curl_exec($ch);
         curl_close($ch);
-
+        
         return $imgJsonDescription;
     }
 

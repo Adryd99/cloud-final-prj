@@ -95,17 +95,6 @@ class UploadFileApi extends AbsApi {
         return $filepath;
     }
 
-    /**
-     * Create thumbnail
-     
-    protected function createThumbnail(string $filepath) :string {
-        $thumbnailName = ImgTransform::getThumbnailName($filepath);
-        ImgTransform::thumbnail($filepath, $thumbnailName);
-
-        return $thumbnailName;
-    }
-    */
-
 
     /**
      * Main upload function
@@ -129,30 +118,27 @@ class UploadFileApi extends AbsApi {
             // validate file as image
             $this->validateUpload($filepath);
 
-            // create thumbnail
-        //    $thumbnailName = $this->createThumbnail($filepath);
-
             // extract the exif data..
             $exif = exif_read_data($filepath, "FILE,COMPUTED,ANY_TAG,IFD0,THUMBNAIL,COMMENT,EXIF", true);
             $exif = $exif === false ? '' : json_encode($exif);       
    
             // store img on blob (with its thumbnail)
             $this->storeOnCloud($filepath);
-        //    $this->storeOnCloud($thumbnailName);
 
             // generate sas url with default expiry date
             $sasUrl = $this->blob->generateBlobDownloadLinkWithSAS(
                 basename($filepath),
                 $this->expiry
             );
-/*var_dump(__LINE__, $sasUrl, filter_var($sasUrl, FILTER_VALIDATE_URL));
-exit;
-  */        // perform computer vision and store given tags..
+
+            // perform computer vision and store given tags..
             $tags = [];
             $cvResponse = $this->computerVision->getAnalysis($sasUrl);
-            foreach ($cvResponse['categories'] AS $v) {
-                if ($v['score'] > $this->computerVision->getThreshold()) {
-                    $tags[] = $v['name'];
+            if(isset($cvResponse['categories'])) {
+                foreach ($cvResponse['categories'] AS $v) {
+                    if ($v['score'] > $this->computerVision->getThreshold()) {
+                        $tags[] = $v['name'];
+                    }
                 }
             }
 

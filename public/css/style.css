@@ -1,0 +1,17 @@
+h1, h2, h3 {
+    color: #369;
+}
+
+#map {
+    min-height: 400px;
+    min-width: 100%;
+}
+
+.navcolor {
+    background-color:#369;
+    color:#fff;
+}
+
+.navcolor a {
+    color:#fff;
+}

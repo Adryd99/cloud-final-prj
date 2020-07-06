@@ -21,7 +21,7 @@
 <?php endif; ?>
 <br/>
 
-<img src="<?= $this->e($imgDetails->url) ?>" /> 
+<img class="img-fluid" src="<?= $this->e($imgDetails->url) ?>" /> 
 
 <br/><br/>
 <h3>Tags:</h3>

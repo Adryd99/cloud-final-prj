@@ -10,11 +10,14 @@ Trait GetUserTrait {
     
     protected function findUser(ServerRequestInterface $request): ?string {
         $cookies = $request->getCookieParams();
+
         if (! isset($cookies['user'])) {
             return null;
         }
 
         $crypt = CryptMsg::instance();
-        return $crypt->decrypt($cookies['user'], $crypt::nonce());
+    
+        $username = $crypt->decrypt($cookies['user'], $crypt::nonce());
+        return $username;
     }
 }

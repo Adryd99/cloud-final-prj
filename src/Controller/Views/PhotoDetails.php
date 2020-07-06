@@ -21,7 +21,6 @@ class PhotoDetails extends ViewController implements \App\Controller\IController
         ImagesDbCollection $imagesDb
     ) {
         $this->imagesDb = $imagesDb;
-
         $template = 'photodetails';
         $middlewares = [
             new InjectableMiddleware($needsAuth)

@@ -65,11 +65,7 @@ class RefreshImagesApi extends AbsApi {
             $imagesToRefresh = $this->imagesDb->selectAllByUser(
                 $this->userDb->mapObj->getId(),
                 $search
-            );
-/*
-var_dump($date, $search, $imagesToRefresh);
-exit; 
-*/      
+            );     
             if (count($imagesToRefresh))
                 $this->refreshSasForExpiredItems($imagesToRefresh, $this->imagesDb, $this->expiry);
 

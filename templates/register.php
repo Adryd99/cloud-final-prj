@@ -14,4 +14,4 @@
 </form>
 <span style="color:<?= $this->e($msgStyle); ?>"><?= $this->e($message); ?></span>
 <br/>
-<a href="/"><button>Back</button></a>
+<a href="/">Back</a>

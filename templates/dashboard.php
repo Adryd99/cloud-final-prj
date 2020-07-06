@@ -14,8 +14,9 @@
     $link = str_replace('.', '%20', $this->e($img->filename));
 ?>
     <div style="display:inline-block; margin:1em; maxwidth:150px; vertical-align: text-top;"> 
-        <p><a href="/photodetails/<?= $link ?>"><?= $img->filename ?></a></p>
-        <img height="150" width="auto" src="<?= $this->e($img->url) ?>" />
+        <a href="/photodetails/<?= $link ?>">
+            <img style="width:150px;" class="img-thumbnail" src="<?= $this->e($img->url) ?>" />
+        </a>
         <p>Uploaded: <?= date('Y-m-d', $this->e($img->_id->getTimestamp())) ?></p>
         <?php 
             $tagLen = count($img->tags);

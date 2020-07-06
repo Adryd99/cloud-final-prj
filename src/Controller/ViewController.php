@@ -50,8 +50,7 @@ abstract class ViewController extends AbsController implements \App\Controller\I
             );
         }
         
-        $params['user'] = $this->findUser($request);
-        
+        $params['user'] = $this->findUser($request);      
         return $this->view->setResponse($this->template, $params);
     }
 }

@@ -3,7 +3,7 @@ const formToSubmit = document.querySelector(".confirm-form");
 
 const askForConfirmation = (event) => {
     event.preventDefault();
-    if (confirm("Do you really want to delete this photo?")) {
+    if (confirm("Do you really want to delete the selected photos?")) {
         formToSubmit.submit(); //... fix this
     }
 }

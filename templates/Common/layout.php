@@ -1,6 +1,9 @@
 <html>
 <head>
     <title><?=$this->e($title)?></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css"/>
+    <?=$this->section('head')?>
 </head>
 <body>
     <?php 
@@ -11,6 +14,8 @@
         $btn['Photo Maps'] = ['path' => '/photomaps', 'public' => false]; 
         $this->insert('Common/navbar', ['buttons' => $btn, 'user' => $user]); 
     ?>
-    <?=$this->section('content')?>
+    <div class="container">
+        <?=$this->section('content')?>
+    </div>
 </body>
 </html>

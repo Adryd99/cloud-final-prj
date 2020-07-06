@@ -8,12 +8,12 @@ class Env {
     protected static $envFile = "/config/config.env";
 
     protected static $config;
-
+   
 
     protected static function parseEnv(string $envPath): array {
         if (! file_exists($envPath))
             throw new \Error("Env file not found.");
-
+          
         $arr = file($envPath);
         $config = [];
         $limit = count($arr);
@@ -33,13 +33,13 @@ class Env {
                 } elseif(strpos($c, ']') !== false) {
                     $subArrayKey = '';
                     continue;
-                }
+                } 
 
                 if (strlen($subArrayKey) > 0) {
-                    $config[$subArrayKey][trim($data[0])] = trim($data[1]);
+                    $config[$subArrayKey][trim($data[0])] = trim($data[1]); 
 
                 } else {
-                    $config[trim($data[0])] = count($data)<2?'':trim($data[1]); 
+                    $config[trim($data[0])] = count($data) < 2 ? '': trim($data[1]); 
                 }
             }
         }
@@ -56,10 +56,10 @@ class Env {
         } catch (\Error $e) {
             die($e->getMessage());
         }
-
+        
         if (! array_key_exists($key, self::$config))
             throw new \InvalidArgumentException("Key not found!");
-
+        
         if (is_array(self::$config[$key])) {
             return filter_var_array(self::$config[$key]);
         }

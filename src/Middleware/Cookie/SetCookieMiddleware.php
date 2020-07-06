@@ -55,8 +55,6 @@ class SetCookieMiddleware extends AbsResponseMiddleware implements IMiddleware{
                 );
             }
         }
-// var_dump('cookie');
-// var_dump($body->read(1024));
         return $response;
     }
 }
